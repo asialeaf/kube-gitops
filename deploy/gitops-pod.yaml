@@ -15,24 +15,24 @@ spec:
     imagePullPolicy: IfNotPresent
     name: gitops
     resources:
-      limit:
-        cpu: 400m
-        momory: 400m        
+      limits:
+        cpu: 2
+        memory: 400Mi      
       requests:
-        cpu: 200m
-        momory: 200m
-    volumeMounts:
-    - mountPath: /root/.kube/config
-      name: kubeconfig
-      readOnly: true
-  restartPolicy: Nerver
+        cpu: 1
+        memory: 200Mi
+    # volumeMounts:
+    # - mountPath: /root/.kube/config
+    #   name: kubeconfig
+    #   readOnly: true
+  restartPolicy: Never
   nodeSelector: 
     kubernetes.io/hostname: k8s-master
   tolerations:
   - effect: NoSchedule
     operator: Exists
-  volumes:
-  - hostPath:
-      path: /etc/kubernetes/controller-manager.conf
-      type: FileOrCreate
-    name: kubeconfig
+  # volumes:
+  # - hostPath:
+  #     path: /root/.kube/config
+  #     type: FileOrCreate
+  #   name: kubeconfig
