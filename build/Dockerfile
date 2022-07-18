@@ -23,4 +23,3 @@ RUN apk del --purge deps \
 #ENTRYPOINT [""]
 
 # Run the executable
-CMD ["/bin/bash"]

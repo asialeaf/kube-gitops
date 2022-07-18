@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
   - command:
-    - /bin/bash
+    - sh
     - -c
     - /gitops.sh
     image: kubectl:v1.0
@@ -21,18 +21,9 @@ spec:
       requests:
         cpu: 1
         memory: 200Mi
-    # volumeMounts:
-    # - mountPath: /root/.kube/config
-    #   name: kubeconfig
-    #   readOnly: true
   restartPolicy: Never
   nodeSelector: 
     kubernetes.io/hostname: k8s-master
   tolerations:
   - effect: NoSchedule
     operator: Exists
-  # volumes:
-  # - hostPath:
-  #     path: /root/.kube/config
-  #     type: FileOrCreate
-  #   name: kubeconfig
