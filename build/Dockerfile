@@ -5,6 +5,7 @@ LABEL description="Base image,add git、kubectl、curl"
 ENV TZ="Asia/Shanghai"
 
 # Copy from build directory
+COPY ../cmd/gitops.sh /gitops.sh
 
 # Update && Add toolsß
 RUN apk add --update -t deps git curl \
@@ -18,3 +19,8 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.22.10/b
 RUN apk del --purge deps \
   && rm /var/cache/apk/*
 
+# Define default command
+#ENTRYPOINT [""]
+
+# Run the executable
+CMD ["/bin/bash"]

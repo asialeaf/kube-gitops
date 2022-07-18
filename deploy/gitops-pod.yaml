@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: gitops
+  name: demo-gitops
+  namespace: default
+spec:
+  containers:
+  - command:
+    - /bin/bash
+    - -c
+    - /gitops.sh
+    image: kubectl:v1.0
+    imagePullPolicy: IfNotPresent
+    name: gitops
+    resources:
+      limit:
+        cpu: 400m
+        momory: 400m        
+      requests:
+        cpu: 200m
+        momory: 200m
+    volumeMounts:
+    - mountPath: /root/.kube/config
+      name: kubeconfig
+      readOnly: true
+  restartPolicy: Nerver
+  nodeSelector: 
+    kubernetes.io/hostname: k8s-master
+  tolerations:
+  - effect: NoSchedule
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/controller-manager.conf
+      type: FileOrCreate
+    name: kubeconfig
