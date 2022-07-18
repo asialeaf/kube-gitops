@@ -6,6 +6,9 @@ metadata:
   name: demo-gitops
   namespace: default
 spec:
+  securityContext:
+    runAsUser: root
+    runAsGroup: root
   containers:
   - command:
     - sh
