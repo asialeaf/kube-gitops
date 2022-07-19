@@ -6,9 +6,9 @@ metadata:
   name: demo-gitops
   namespace: default
 spec:
-  securityContext:
-    runAsUser: root
-    runAsGroup: root
+  # securityContext:
+  #   runAsUser: 0
+  #   runAsGroup: 0
   containers:
   - command:
     - sh
@@ -16,6 +16,13 @@ spec:
     - /gitops.sh
     image: kubectl:v1.0
     imagePullPolicy: IfNotPresent
+    env:
+    - name: GITSOURCE
+      value: "https://github.com/asialeaf/gitops.git"
+    - name: GITPATH
+      value: "deploy/"
+    - name: CALLBACK
+      value: "http://10.96.221.127:8060/dingtalk/webhook1/send"
     name: gitops
     resources:
       limits:
@@ -24,9 +31,18 @@ spec:
       requests:
         cpu: 1
         memory: 200Mi
+    volumeMounts:
+    - mountPath: /root/.kube
+      name: kubeconfig
+      readOnly: true
   restartPolicy: Never
   nodeSelector: 
     kubernetes.io/hostname: k8s-master
   tolerations:
   - effect: NoSchedule
     operator: Exists
+  volumes:
+  - hostPath:
+      path: /root/.kube
+      type: DirectoryOrCreate
+    name: kubeconfig

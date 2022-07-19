@@ -3,6 +3,7 @@ LABEL maintainers="yeyazhou@harmonycloud.cn"
 LABEL description="Base image,add git、kubectl、curl"
 # ENV
 ENV TZ="Asia/Shanghai"
+ENV http_proxy="http://192.168.50.128:10811"
 
 # Copy from build directory
 COPY gitops.sh /gitops.sh
