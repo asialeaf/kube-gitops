@@ -5,7 +5,7 @@ LABEL description="Base image,add git、kubectl、curl"
 ENV TZ="Asia/Shanghai"
 
 # Copy from build directory
-COPY ../cmd/gitops.sh /gitops.sh
+COPY gitops.sh /gitops.sh
 
 # Update && Add toolsß
 RUN apk add --update -t deps git curl \
@@ -14,8 +14,8 @@ RUN apk add --update -t deps git curl \
     && apk del tzdata
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.22.10/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
-  && chown root:root /usr/local/bin/kubectl \
-  && chmod +x /usr/local/bin/kubectl
+  && chmod +x /usr/local/bin/kubectl \
+  && chmod +x /gitops.sh
 
 RUN apk del --purge deps \
   && rm /var/cache/apk/*
