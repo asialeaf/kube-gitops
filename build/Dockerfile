@@ -14,6 +14,7 @@ RUN apk add --update -t deps git curl \
     && apk del tzdata
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.22.10/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+  && chown root:root /usr/local/bin/kubectl \
   && chmod +x /usr/local/bin/kubectl
 
 RUN apk del --purge deps \
