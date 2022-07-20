@@ -7,8 +7,16 @@ ENV TZ="Asia/Shanghai"
 # Copy from build directory
 COPY gitops.sh /gitops.sh
 
+# Update Repo
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
 # Update && Add toolsß
-RUN apk add --update --no-cache git curl \
+RUN set -x \
+    && apk update \
+    && apk add --no-cache \
+    bash bash-doc bash-completion \
+    curl git busybox-extras \
+    tzdata \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone  \
     && apk del tzdata \
