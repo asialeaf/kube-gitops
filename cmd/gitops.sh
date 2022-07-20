@@ -35,6 +35,8 @@ function warnlog() {
 # Send msg
 function sendmsg() {
     STATUS=$1
+    MSG=$(echo $MSG)
+    # MSG=$(sed ':a;N;$!ba;s#\n#, #g' /tmp/msg.log)
     DATA="{\"status\": \"$STATUS\",\"msg\": \"$MSG\"}"
     infolog "send msg: "$DATA
     http_code=$(curl -m 10 -o /dev/null -s -w %{http_code} -H 'Content-Type: application/json' -d "$DATA" -X POST $CALLBACK)
@@ -67,10 +69,7 @@ fi
 # kubectl apply
 infolog "Start apply yamls..."
 cd $TEMP_DIR/$GITREPONAME/$GITPATH
-# MSG=$(kubectl apply -f . 2>&1)
-# MSG=$(echo $MSG)
-kubectl apply -f . > /tmp/msg.log
-MSG=$(sed ':a;N;$!ba;s#\n#, #g' /tmp/msg.log)
+MSG=$(kubectl apply -f . 2>&1)
 if [[ $? == 0 ]];then
     infolog "kubectl apply "$GITREPONAME" success!"
     sendmsg "success"
