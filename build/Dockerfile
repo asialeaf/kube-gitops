@@ -10,7 +10,7 @@ COPY gitops.sh /gitops.sh
 # Update Repo
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
-# Update && Add toolsß
+# Update && Add tools
 RUN set -x \
     && apk update \
     && apk add --no-cache \
