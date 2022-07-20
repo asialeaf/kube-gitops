@@ -8,17 +8,15 @@ ENV TZ="Asia/Shanghai"
 COPY gitops.sh /gitops.sh
 
 # Update && Add toolsß
-RUN apk add --update -t deps git curl \
+RUN apk add --update --no-cache git curl \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone  \
-    && apk del tzdata
+    && apk del tzdata \
+    && /bin/rm -rf /tmp/* /var/cache/apk/*
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v1.22.10/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
   && chmod +x /usr/local/bin/kubectl \
   && chmod +x /gitops.sh
-
-RUN apk del --purge deps \
-  && rm /var/cache/apk/*
 
 # Define default command
 #ENTRYPOINT [""]
