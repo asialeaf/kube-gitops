@@ -16,7 +16,7 @@ function Color_Definition(){
 }
 Color_Definition
 function nowTime(){
-	date1=`date '+%Y-%m-%d %H:%M:%S+%N'`
+	date1=`date '+%Y-%m-%d %H:%M:%S'`
 }
 
 function errorlog() {
