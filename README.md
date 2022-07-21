@@ -24,4 +24,16 @@ kube-gitops主要提供业务Pod容器，需将构建好的镜像地址需和kub
    docker push kubectl:v1.0       #如上传至私有仓库，需注意和kube-httpserver pkg/core/pod/pod.go 中Image保持一致，以防拉取不到镜像
    ```
 
-   
+
+
+##### 回调接口发送数据格式
+
+Post Data:
+
+```json
+{	
+  "status": "success",
+  "msg": "pod/demo-nginx-2 created pod/demo-nginx created"
+}
+```
+
