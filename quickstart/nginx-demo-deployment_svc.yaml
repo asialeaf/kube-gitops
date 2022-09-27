@@ -13,4 +13,4 @@ spec:
     targetPort: http
   selector:
     app: nginx-demo
-  # type: NodePort
+  type: NodePort
