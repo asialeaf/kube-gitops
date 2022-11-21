@@ -18,6 +18,11 @@ jobs:
     steps:
     - name: '进入代码仓库'
       uses: actions/checkout@v3
+
+    # 获取tag name
+    - name: '获取当前版本'
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       
     # 登录到阿里云容器镜像服务
     # registry.cn-hangzhou.aliyuncs.com
