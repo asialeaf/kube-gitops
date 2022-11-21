@@ -29,4 +29,4 @@ jobs:
         username: ${{ secrets.DOCKER_ALI_REGISTRY_USN }}
         password: ${{ secrets.DOCKER_ALI_REGISTRY_PWD }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file build/Dockerfile --tag my-image-name:$(date +%s)
