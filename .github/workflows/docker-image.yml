@@ -1,0 +1,32 @@
+# Github Workflow的名称
+name: Docker Image CI
+
+# 触发此Workflow的条件
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 触发条件满足之后，执行此工作流里的工作任务
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: '进入代码仓库'
+      uses: actions/checkout@v3
+      
+    # 登录到阿里云容器镜像服务
+    # registry.cn-hangzhou.aliyuncs.com
+    - name: '登录到阿里云的容器镜像服务'
+      uses: docker/login-action@v1
+      # 配置登录信息，secrets 变量在当前仓库的 Settings -> Secrets 中设置
+      with:
+        registry: registry.cn-hangzhou.aliyuncs.com
+        username: ${{ secrets.DOCKER_ALI_REGISTRY_USN }}
+        password: ${{ secrets.DOCKER_ALI_REGISTRY_PWD }}
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
