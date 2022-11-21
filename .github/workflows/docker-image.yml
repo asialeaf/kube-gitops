@@ -33,5 +33,14 @@ jobs:
         registry: registry.cn-hangzhou.aliyuncs.com
         username: ${{ secrets.DOCKER_ALI_REGISTRY_USN }}
         password: ${{ secrets.DOCKER_ALI_REGISTRY_PWD }}
-    - name: Build the Docker image
-      run: docker build . --file build/Dockerfile --tag my-image-name:$(date +%s)
+    # - name: Build the Docker image
+    #   run: docker build . --file build/Dockerfile --tag my-image-name:$(date +%s)
+
+    # 构建镜像并上传到 ghcr.io 容器镜像仓库
+    - name: '构建镜像并上传到 aliyun 容器镜像仓库'
+      id: docker_build
+      uses: docker/build-push-action@v3
+      with:
+        file: build/Dockerfile
+        push: True
+        tags: registry.cn-hangzhou.aliyuncs.com/asialeaf/kube-gitops:latest
