@@ -5,7 +5,7 @@ LABEL description="Base image,add git、kubectl、curl"
 ENV TZ="Asia/Shanghai"
 
 # Copy from build directory
-COPY gitops.sh /gitops.sh
+COPY /cmd/gitops.sh /gitops.sh
 
 # Update Repo
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
