@@ -13,16 +13,11 @@ jobs:
 
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - name: '进入代码仓库'
       uses: actions/checkout@v3
-
-    - name: '安装docker'
-      # You may pin to the exact commit or the version.
-      # uses: docker-practice/actions-setup-docker@5d9a5f65f510c01ec5f0bd81d5c95768b1ec032a
-      uses: docker-practice/actions-setup-docker@1.0.11
 
     # 登录到阿里云容器镜像服务
     # registry.cn-hangzhou.aliyuncs.com
